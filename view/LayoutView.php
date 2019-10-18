@@ -11,11 +11,11 @@ class LayoutView {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Login Example</title>
+          <title>1DV610 - L3</title>
           <link rel="stylesheet" href="style.css">
         </head>
         <body>
-          <a href="."><h1>Assignment 2</h1></a>
+          <a href="."><h1>Assignment 3</h1></a>
           '. $this->addRegisterLink() . '
 
           ' . $this->renderIsLoggedIn($isLoggedIn) . '

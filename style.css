@@ -59,4 +59,19 @@ input[type=checkbox] {
 
 form {
     background-color: #222;
+    padding: 20px;
+}
+
+textarea {
+    background-color: rgb(226, 202, 68);
+    color: black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    background: url("img/notepad.jpg");
+    padding: 20px;
+}
+
+#notepad {
+    background: none;
 }

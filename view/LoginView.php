@@ -37,6 +37,10 @@ class LoginView {
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $message .'</p>
+				<input type="submit" name="goToNotepad" value="To Notepad"/>
+			</form>
+
+			<form  method="post" >
 				<input type="submit" name="' . self::$logout . '" value="logout"/>
 			</form>
 		';
