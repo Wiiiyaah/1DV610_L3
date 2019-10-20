@@ -17,15 +17,12 @@ $loginVw = new LoginView($notepadVw);
 // Start session
 session_start();
 
-// When POST (of Login-form)
-$loginVw->listenPOST();
-
 // Renders registration page if clicked on "Register a new user"
 if (isset($_GET['register'])) {
 	$layoutVw->render(false, $registerVw, $dateTimeVw);
 // Renders main page logged in if cookies exist
 } else if (isset($_COOKIE[LoginView::$cookieName]) && isset($_COOKIE[LoginView::$cookiePassword])) {
-	$loginVw->logInUser();
+	$loginVw->loginUser();
 	$layoutVw->render(LoginView::$correctCookie, $loginVw, $dateTimeVw);
 // Renders main page logged in if session exists
 } else if (isset($_SESSION['loggedIn'])) {

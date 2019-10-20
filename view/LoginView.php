@@ -24,6 +24,9 @@ class LoginView {
 	 * @return - The requested HTML-response (either a login form or logout button)
 	 */
 	public function response() {
+		// When POST (of Login-form)
+		$this->listenPOST(); // Listener for login/log out buttons
+
 		if (isset($_SESSION['loggedIn']) && $_SESSION == true)
 		{
 			$response = $this->getLoggedInHTML($this->message);
@@ -82,7 +85,7 @@ class LoginView {
 	 */
 	public function listenPOST() {
 		if (isset($_POST['LoginView::Login'])) {
-			$this->logInUser();
+			$this->loginUser();
 		} else if (isset($_POST['LoginView::Logout'])) {
 			$this->logOutUser();
 		}
@@ -91,7 +94,7 @@ class LoginView {
 	/**
 	 * Logs the user in
 	 */
-	public function logInUser() {
+	public function loginUser() {
 		// If there is a cookie saved
 		if (isset($_COOKIE[self::$cookieName]) && isset($_COOKIE[self::$cookiePassword])) {
 			$this->loginByCookies();
