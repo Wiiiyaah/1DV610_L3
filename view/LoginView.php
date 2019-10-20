@@ -80,7 +80,7 @@ class LoginView {
 	/**
 	 * Listens for POSTs from the login form or logout button
 	 */
-	public function listenPost() {
+	public function listenPOST() {
 		if (isset($_POST['LoginView::Login'])) {
 			$this->logInUser();
 		} else if (isset($_POST['LoginView::Logout'])) {

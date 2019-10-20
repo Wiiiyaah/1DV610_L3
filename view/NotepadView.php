@@ -4,17 +4,14 @@ class NotepadView {
 	private static $note = '';
 	private static $saveNote = 'NotepadView::SaveNote';
 	private static $clearNote = 'NotepadView::ClearNote';
-	private $message = '';
 
 	/**
-	 * Creates HTTP response depending on if logged in or out
-	 * @return - The requested HTML-response (either a login form or logout button)
-	 */
+	* Creates HTTP response with the Notepad HTML and a POST-lister
+	* @return - The HTML-response of a Notepad
+	*/
 	public function response() {
-		// Listens for POST (of note changes)
-		$this->listenNotePOST();
-
-		return $this->generateNotepadHTML();
+		$this->listenPOST(); // Listener for note changes
+		return $this->getNotepadHTML();
 	}
 
 	/**
@@ -22,14 +19,8 @@ class NotepadView {
 	* @param $message, String output message
 	* @return - The HTML of the logout button
 	*/
-	private function generateNotepadHTML() {
-		if (isset($_COOKIE['note'])) {
-			self::$note = $_COOKIE['note'];
-		} else if (isset($_SESSION['note'])) {
-			// self::$note = $_SESSION['note'];
-		}
-
-		$note = self::$note;
+	private function getNotepadHTML() {
+		$note = $this->getSavedNote();
 		$saveNote = self::$saveNote;
 		$clearNote = self::$clearNote;
 
@@ -46,26 +37,45 @@ class NotepadView {
 	}
 
 	/**
-	 * Listens for POSTs from the login form or logout button
-	 */
-	public function listenNotePOST() {
+	* Listens for POSTs from the login form or logout button
+	*/
+	public function listenPOST() {
+		// On Save-click
 		if (isset($_POST['NotepadView::SaveNote'])) {
-			$_SESSION['note'] = $_POST['note'];
-			setcookie('note', $_POST['note'], time()+3600);
-			header("Refresh:0");
-			// $this->saveNote();
+			$this->saveNote();
+			header("Refresh:0"); // Refreshes the page
+		// On Clear-click
 		} else if (isset($_POST['NotepadView::ClearNote'])) {
-			unset($_COOKIE['note']);
-			setcookie('note', '', time()-3600);
-			$_SESSION['note'] = '';
+			$this->clearNote();
 		}
 	}
 
 	/**
-	 * Logs the user in
-	 */
-	public function saveNote() {
-		// Adds saved notepad to session
-		$_SESSION['note'] = self::$note;
+	* Logs the user in
+	*/
+	private function saveNote() {
+		$_SESSION['note'] = $_POST['note']; // Saves to session
+		setcookie('note', $_POST['note'], time()+3600); // Saves to cookie (for eventual log out)
+	}
+
+	/**
+	* Logs the user in
+	*/
+	private function clearNote() {
+		// Unsets and clears the cookie
+		unset($_COOKIE['note']);
+		setcookie('note', '', time()-3600);
+		// Clears the session
+		$_SESSION['note'] = '';
+	}
+
+	private function getSavedNote() {
+		if (isset($_COOKIE['note'])) {
+			return $_COOKIE['note']; // from cookie
+		} else if (isset($_SESSION['note'])) {
+			return $_SESSION['note']; // from session
+		} else {
+			return ''; // if none
+		}
 	}
 }

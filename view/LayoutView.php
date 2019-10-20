@@ -7,7 +7,6 @@ class LayoutView {
    * if a user is logged in or not, the view, date and time.
    */
   public function render($isLoggedIn, $view, DateTimeView $dtv) {
-
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -55,11 +54,11 @@ class LayoutView {
 
   private function getLinkHTML($isLoggedIn) {
     if ($this->isRegistration()) {
-      return $this->addRegLink
+      return $this->getBackLink();
     } else if ($isLoggedIn) {
       return '';
     } else {
-      return $this->getBackLink;
+      return $this->getRegLink();
     }
   }
 
