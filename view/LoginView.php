@@ -26,9 +26,9 @@ class LoginView {
 	public function response() {
 		if (isset($_SESSION['loggedIn']) && $_SESSION == true)
 		{
-			$response = $this->generateLoggedInHTML($this->message);
+			$response = $this->getLoggedInHTML($this->message);
 		} else {
-			$response = $this->generateLoginFormHTML($this->message);
+			$response = $this->getLoginFormHTML($this->message);
 		}
 		return $response;
 	}
@@ -38,7 +38,7 @@ class LoginView {
 	* @param $message, String output message
 	* @return - The HTML of the logout button
 	*/
-	private function generateLoggedInHTML($message) {
+	private function getLoggedInHTML($message) {
 		return '
 			<p id="' . self::$messageId . '">' . $message .'</p>
 
@@ -55,7 +55,7 @@ class LoginView {
 	* @param $message, String output message
 	* @return - The HTML of the login form
 	*/
-	private function generateLoginFormHTML($message) {
+	private function getLoginFormHTML($message) {
 		return '
 			<form method="post" >
 				<fieldset>
