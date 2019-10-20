@@ -11,6 +11,9 @@ class NotepadView {
 	 * @return - The requested HTML-response (either a login form or logout button)
 	 */
 	public function response() {
+		// Listens for POST (of note changes)
+		$this->listenNotePOST();
+
 		return $this->generateNotepadHTML();
 	}
 
@@ -45,7 +48,7 @@ class NotepadView {
 	/**
 	 * Listens for POSTs from the login form or logout button
 	 */
-	public function listenNoteSave() {
+	public function listenNotePOST() {
 		if (isset($_POST['NotepadView::SaveNote'])) {
 			$_SESSION['note'] = $_POST['note'];
 			setcookie('note', $_POST['note'], time()+3600);
