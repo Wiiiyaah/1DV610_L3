@@ -12,18 +12,17 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 // Object creation of views
-$loginVw = new LoginView();
 $dateTimeVw = new DateTimeView();
 $layoutVw = new LayoutView();
 $registerVw = new RegisterView();
 $notepadVw = new NotepadView();
+$loginVw = new LoginView($notepadVw);
 
 // Start session
 session_start();
 
 // When POST (of Login-form)
 $loginVw->listenPost();
-
 // When POST (of saved note)
 $notepadVw->listenNoteSave();
 
@@ -42,7 +41,7 @@ if (isset($_GET['register'])) {
 	$layoutVw->render(false, $loginVw, $dateTimeVw);
 }
 
-// Listens for button press to go to notepad
+/* // Listens for button press to go to notepad
 if (isset($_POST['goToNotepad'])) {
 	$layoutVw->render(true, $notepadVw, $dateTimeVw);
-}
+} */

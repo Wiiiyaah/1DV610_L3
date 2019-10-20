@@ -3,6 +3,7 @@
 class NotepadView {
 	private static $note = '';
 	private static $saveNote = 'NotepadView::SaveNote';
+	private static $clearNote = 'NotepadView::ClearNote';
 	private $message = '';
 
 	/**
@@ -19,12 +20,15 @@ class NotepadView {
 	* @return - The HTML of the logout button
 	*/
 	private function generateNotepadHTML() {
-		if(isset($_SESSION['note'])) {
-			self::$note = $_SESSION['note'];
+		if (isset($_COOKIE['note'])) {
+			self::$note = $_COOKIE['note'];
+		} else if (isset($_SESSION['note'])) {
+			// self::$note = $_SESSION['note'];
 		}
 
 		$note = self::$note;
 		$saveNote = self::$saveNote;
+		$clearNote = self::$clearNote;
 
 		return "
 			<h3>Your personal notepad</h3>
@@ -33,6 +37,7 @@ class NotepadView {
 				<textarea id='note' name='note' rows='10' cols='40'>$note</textarea>
 				<br/>
 				<input type='submit' name='$saveNote' value='Save' />
+				<input type='submit' name='$clearNote' value='Clear' />
 			</form>
 		";
 	}
@@ -43,7 +48,13 @@ class NotepadView {
 	public function listenNoteSave() {
 		if (isset($_POST['NotepadView::SaveNote'])) {
 			$_SESSION['note'] = $_POST['note'];
+			setcookie('note', $_POST['note'], time()+3600);
+			header("Refresh:0");
 			// $this->saveNote();
+		} else if (isset($_POST['NotepadView::ClearNote'])) {
+			unset($_COOKIE['note']);
+			setcookie('note', '', time()-3600);
+			$_SESSION['note'] = '';
 		}
 	}
 

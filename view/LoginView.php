@@ -12,7 +12,12 @@ class LoginView {
 	private $message = '';
 	public static $correctCookie = true;
 	public static $savedUserName = '';
+	protected static $currView;
 
+	// Constructor with view as parameter
+	function __construct($view) {
+			self::$currView = $view;
+	}
 
 	/**
 	 * Creates HTTP response depending on if logged in or out
@@ -35,10 +40,9 @@ class LoginView {
 	*/
 	private function generateLoggedInHTML($message) {
 		return '
-			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message .'</p>
-				<input type="submit" name="goToNotepad" value="To Notepad"/>
-			</form>
+			<p id="' . self::$messageId . '">' . $message .'</p>
+
+			' . self::$currView->response() . '
 
 			<form  method="post" >
 				<input type="submit" name="' . self::$logout . '" value="logout"/>
