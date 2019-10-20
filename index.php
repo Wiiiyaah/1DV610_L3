@@ -8,8 +8,8 @@ require_once('view/RegisterView.php');
 require_once('view/NotepadView.php');
 
 // Error handling and debugging (inactivated for public server)
-// error_reporting(E_ALL);
-// ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
 // Object creation of views
 $loginVw = new LoginView();
@@ -23,6 +23,9 @@ session_start();
 
 // When POST (of Login-form)
 $loginVw->listenPost();
+
+// When POST (of saved note)
+$notepadVw->listenNoteSave();
 
 // Renders registration page if clicked on "Register a new user"
 if (isset($_GET['register'])) {

@@ -1,25 +1,16 @@
 <?php
 
 class NotepadView {
-	private static $login = 'NotepadView::Login';
-	private static $logout = 'NotepadView::Logout';
-	private static $name = 'NotepadView::UserName';
-	private static $password = 'NotepadView::Password';
-	public static $cookieName = 'NotepadView::CookieName';
-	public static $cookiePassword = 'NotepadView::CookiePassword';
-	private static $keep = 'NotepadView::KeepMeLoggedIn';
-	private static $messageId = 'NotepadView::Message';
-	private static $notes = 'NotepadView::Notes';
+	private static $note = '';
+	private static $saveNote = 'NotepadView::SaveNote';
 	private $message = '';
-	public static $correctCookie = true;
-	public static $savedUserName = '';
 
 	/**
 	 * Creates HTTP response depending on if logged in or out
 	 * @return - The requested HTML-response (either a login form or logout button)
 	 */
 	public function response() {
-		return $this->generateNotepadHTML($this->message);
+		return $this->generateNotepadHTML();
 	}
 
 	/**
@@ -27,39 +18,40 @@ class NotepadView {
 	* @param $message, String output message
 	* @return - The HTML of the logout button
 	*/
-	private function generateNotepadHTML($message) {
-		$this->listenNotes();
-
-		if(isset($_SESSION['notes'])) {
-			self::$notes = $_SESSION['notes'];
+	private function generateNotepadHTML() {
+		if(isset($_SESSION['note'])) {
+			self::$note = $_SESSION['note'];
 		}
 
-		return '
+		$note = self::$note;
+		$saveNote = self::$saveNote;
+
+		return "
 			<h3>Your personal notepad</h3>
 
-			<form method="post" id="notepad">
-				<textarea id="notes" name="notes" value="' . self::$notes . '" rows="10" cols="40"></textarea>
+			<form method='post' id='notepad'>
+				<textarea id='note' name='note' rows='10' cols='40'>$note</textarea>
 				<br/>
-				<input type="submit" name="save" value="Save" />
+				<input type='submit' name='$saveNote' value='Save' />
 			</form>
-		';
+		";
 	}
 
 	/**
 	 * Listens for POSTs from the login form or logout button
 	 */
-	public function listenNotes() {
-		if (isset($_POST['save'])) {
-			self::$notes = $_POST['notes'];
-			$this->saveNotes();
+	public function listenNoteSave() {
+		if (isset($_POST['NotepadView::SaveNote'])) {
+			$_SESSION['note'] = $_POST['note'];
+			// $this->saveNote();
 		}
 	}
 
 	/**
 	 * Logs the user in
 	 */
-	public function saveNotes() {
+	public function saveNote() {
 		// Adds saved notepad to session
-		$_SESSION['notes'] = self::$notes;
+		$_SESSION['note'] = self::$note;
 	}
 }
