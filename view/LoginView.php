@@ -92,50 +92,78 @@ class LoginView {
 	 * Logs the user in
 	 */
 	public function logInUser() {
-		// If there is a cookie saved with correct credentials
+		// If there is a cookie saved
 		if (isset($_COOKIE[self::$cookieName]) && isset($_COOKIE[self::$cookiePassword])) {
-			if ($_COOKIE[self::$cookieName] == 'Admin' && $_COOKIE[self::$cookiePassword] == 'Password') {
-				self::$correctCookie = true;
-				if (!isset($_SESSION['username']) && !isset($_SESSION['password'])) {
-					$this->message = "Welcome back with cookie";
-				}
-				// Creates a session with the credentials
-				$_SESSION['loggedIn'] = true;
-				$_SESSION['username'] = $_COOKIE[self::$cookieName];
-				$_SESSION['password'] = $_COOKIE[self::$cookiePassword];
-			} else {
-				// When false or incorrect cookie credentials
-				self::$correctCookie = false;
-				$this->message = "Wrong information in cookies";
-				unset($_COOKIE[self::$cookieName]);
-				unset($_COOKIE[self::$cookiePassword]);
-				setcookie(self::$cookieName, '', time()-3600);
-				setcookie(self::$cookiePassword, '', time()-3600);
-			}
+			$this->loginByCookies();
 		// If already logged in (by session)
 		} else if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
 			$this->message = "";
-		// If no cookie or session is set
+		// If no cookie or session is set, by click on login button
 		} else if (isset($_POST['LoginView::Login'])) {
-			if ($_POST[self::$name] == '') {
-				$this->message = "Username is missing";
-			} else if ($_POST[self::$password] == '') {
-				$this->getRequestUserName();
-				$this->message = "Password is missing";
-			} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] != 'Password') {
-				$this->message = "Wrong name or password";
-			} else if ($_POST[self::$name] != 'Admin' && $_POST[self::$password] == 'Password') {
-				$this->message = "Wrong name or password";
-			} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] == 'Password') {
-				if (isset($_POST[self::$keep])) {
-					$this->message = "Welcome and you will be remembered";
-					$this->keepLoggedIn();
-				} else {
-					$this->message = "Welcome";
-				}
-				$this->setSession();
-			}
+			$this->loginByPOST();
 		}
+	}
+
+	private function loginByCookies() {
+		if ($_COOKIE[self::$cookieName] == 'Admin' && $_COOKIE[self::$cookiePassword] == 'Password') {
+			self::$correctCookie = true;
+			if (!isset($_SESSION['username']) && !isset($_SESSION['password'])) {
+				$this->message = "Welcome back with cookie";
+			}
+			// Creates a session with the cookies credentials
+			$this->sessionFromCookies();
+		} else {
+			// When false or incorrect cookie credentials
+			self::$correctCookie = false;
+			$this->message = "Wrong information in cookies";
+			// Clears the users log-in cookies
+			$this->clearCookies();
+		}
+	}
+
+	/**
+	 * Logs in by the submit-button in the log in form
+	 */
+	private function loginByPOST() {
+		if ($_POST[self::$name] == '') {
+			$this->message = "Username is missing";
+		} else if ($_POST[self::$password] == '') {
+			$this->keepUsername();
+			$this->message = "Password is missing";
+		} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] != 'Password') {
+			$this->message = "Wrong name or password";
+		} else if ($_POST[self::$name] != 'Admin' && $_POST[self::$password] == 'Password') {
+			$this->message = "Wrong name or password";
+		} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] == 'Password') {
+			if (isset($_POST[self::$keep])) {
+				$this->message = "Welcome and you will be remembered";
+				$this->keepLoggedIn();
+			} else {
+				$this->message = "Welcome";
+			}
+			$this->setSession();
+		}
+	}
+
+	/**
+	 * Creates a session with the cookies credentials
+	 */
+	private function sessionFromCookies() {
+		$_SESSION['loggedIn'] = true;
+		$_SESSION['username'] = $_COOKIE[self::$cookieName];
+		$_SESSION['password'] = $_COOKIE[self::$cookiePassword];
+	}
+
+	private function clearSession() {
+		session_unset();
+		session_destroy();
+	}
+
+	private function clearCookies() {
+		unset($_COOKIE[self::$cookieName]);
+		unset($_COOKIE[self::$cookiePassword]);
+		setcookie(self::$cookieName, '', time()-3600);
+		setcookie(self::$cookiePassword, '', time()-3600);
 	}
 
 	/**
@@ -144,24 +172,19 @@ class LoginView {
 	private function logOutUser() {
 		// If there is a session set
 		if (isset($_SESSION['loggedIn']) && $_SESSION == true) {
-			session_unset();
-			session_destroy();
+			$this->clearSession();
 			$this->message = "Bye bye!";
 		}
-		// Removes and unsets cookies with credentials
-		unset($_COOKIE[self::$cookieName]);
-		unset($_COOKIE[self::$cookiePassword]);
-		setcookie(self::$cookieName, '', time()-3600);
-		setcookie(self::$cookiePassword, '', time()-3600);
+		// Clears the users log-in cookies
+		$this->clearCookies();
 	}
 
 	/**
 	 * Gets requested username and makes it saved
 	 * @return - The saved username
 	 */
-	private function getRequestUserName() {
+	private function keepUsername() {
 		$nameInput = $_POST[self::$name];
-
 		self::$savedUserName = $nameInput;
 
 		return self::$savedUserName;
