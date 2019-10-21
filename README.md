@@ -19,7 +19,8 @@ Username and Password:
 ## TO-DO/Not implemented
 - Connecting to MySQL-database
 - Don't use hardcoded example credentials
-- Use the database to register/store users and credentials (salted and hashed)
+- Use the database to store users and credentials (salted and hashed)
+- Implement functioning registration of users to the database
 
 ## Extra Use-Cases
 
