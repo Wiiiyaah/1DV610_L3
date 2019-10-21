@@ -17,6 +17,9 @@ $loginVw = new LoginView($notepadVw);
 // Start session
 session_start();
 
+// When POST (of Login-form)
+$loginVw->listenPOST(); // Listener for login/log out buttons
+
 // Renders registration page if clicked on "Register a new user"
 if (isset($_GET['register'])) {
 	$layoutVw->render(false, $registerVw, $dateTimeVw);

@@ -26,9 +26,6 @@ class LoginView {
 	 * @return - The requested HTML-response (either a login form or logout button with content logged in)
 	 */
 	public function response() {
-		// When POST (of Login-form)
-		$this->listenPOST(); // Listener for login/log out buttons
-
 		if (isset($_SESSION['loggedIn']) && $_SESSION == true)
 		{
 			$response = $this->getLoggedInHTML($this->message);

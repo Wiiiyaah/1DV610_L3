@@ -35,7 +35,7 @@ class LayoutView {
    * on if logged in or not
    * @return - The HTML-heading of the logged in-status
    */
-  private function getIsLoggedIn($isLoggedIn) {
+  private function getIsLoggedIn(bool $isLoggedIn) {
     if ($isLoggedIn) {
       return '<h2>Logged in</h2>';
     }
@@ -60,7 +60,7 @@ class LayoutView {
    * Gets the correct link-HTML depending on which page user is on
    * @return - The correct link (if any) for the current page
    */
-  private function getLinkHTML($isLoggedIn) {
+  private function getLinkHTML(bool $isLoggedIn) {
     if ($this->isRegistration()) {
       return $this->getBackLink();
     } else if ($isLoggedIn) {
