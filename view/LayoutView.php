@@ -6,7 +6,7 @@ class LayoutView {
    * Renders the main page HTML with dynamic content depending on
    * if a user is logged in or not, the view, date and time.
    */
-  public function render($isLoggedIn, $view, DateTimeView $dtv) {
+  public function render(bool $isLoggedIn, $view, DateTimeView $dtv) {
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -18,12 +18,12 @@ class LayoutView {
           <a href="."><h1>Assignment 3</h1></a>
           '. $this->getLinkHTML($isLoggedIn) . '
 
-          ' . $this->renderIsLoggedIn($isLoggedIn) . '
+          ' . $this->getIsLoggedIn($isLoggedIn) . '
 
           <div class="container">
               ' . $view->response() . '
 
-              ' . $dtv->show() . '
+              ' . $dtv->get() . '
           </div>
          </body>
       </html>
@@ -31,11 +31,11 @@ class LayoutView {
   }
 
   /**
-   * Renders the logged in heading of the page depending
+   * Gets the heading of the page depending
    * on if logged in or not
    * @return - The HTML-heading of the logged in-status
    */
-  private function renderIsLoggedIn($isLoggedIn) {
+  private function getIsLoggedIn($isLoggedIn) {
     if ($isLoggedIn) {
       return '<h2>Logged in</h2>';
     }
@@ -44,6 +44,10 @@ class LayoutView {
     }
   }
 
+  /**
+   * Gets if the user is on the registration page or not
+   * @return - Boolean if the user is on the registration page
+   */
   private function isRegistration() {
     if (isset($_GET['register'])) {
       return true;
@@ -52,6 +56,10 @@ class LayoutView {
     }
   }
 
+  /**
+   * Gets the correct link-HTML depending on which page user is on
+   * @return - The correct link (if any) for the current page
+   */
   private function getLinkHTML($isLoggedIn) {
     if ($this->isRegistration()) {
       return $this->getBackLink();
@@ -63,15 +71,11 @@ class LayoutView {
   }
 
   /**
-   * Adds a register or back to login link depending on GET-parameter in URL
-   * @return - The back- or register link
+   * Gets the register new user link as HTML
+   * @return - The register link as HTML
    */
   private function getRegLink() {
-    if (isset($_GET['register'])) {
-      return '<a href="./">Back to login</a>';
-    } else if (!isset($_SESSION['loggedIn'])) {
-      return '<a href="?register">Register a new user</a>';
-    }
+    return '<a href="?register">Register a new user</a>';
   }
 
   /**

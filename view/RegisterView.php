@@ -10,11 +10,12 @@ class RegisterView {
     private $message = '';
 
     /**
-     * Creates and returns the registration form
-     * @return $registerForm - The registration form
+     * Creates and returns the registration form as HTML
+     * and adds a listener to registration (by POST-click)
+     * @return $registerForm - The registration form as HTML
      */
 	public function response() {
-        $this->listenRegister();
+        $this->listenPOST();
 
         $registerForm =
         '
@@ -43,9 +44,9 @@ class RegisterView {
     }
 
     /**
-     * Listens to POSTs on the registration form and then registers an user
+     * Listens to POSTs on the registration form and if so registers an user
      */
-	public function listenRegister() {
+	public function listenPOST() {
 		if (isset($_POST['RegisterView::Register'])) {
 			$this->registerUser();
 		}
@@ -93,6 +94,7 @@ class RegisterView {
 
     /**
      * Keeps the username
+     * @return - The kept username
      */
     private function keepUserName() {
         $nameInput = $this->removeSpecChars($_POST[self::$name]);

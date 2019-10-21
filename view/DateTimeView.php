@@ -4,10 +4,10 @@ class DateTimeView {
 
 
 	/**
-	 * Displays the current date and time in timezone of Stockholm as an HTML-paragraph
+	 * Gets the current date and time in timezone of Stockholm as an HTML-paragraph
 	 * @return - The current date and time in timezone of Stockholm as an HTML-paragraph
 	 */
-	public function show() {
+	public function get() {
 		// Setting of time zone
 		date_default_timezone_set('Europe/Stockholm');
 

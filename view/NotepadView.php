@@ -6,7 +6,7 @@ class NotepadView {
 	private static $clearNote = 'NotepadView::ClearNote';
 
 	/**
-	* Creates HTTP response with the Notepad HTML and a POST-lister
+	* Creates a HTTP response with the Notepad HTML and a POST-listener
 	* @return - The HTML-response of a Notepad
 	*/
 	public function response() {
@@ -15,8 +15,7 @@ class NotepadView {
 	}
 
 	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
+	* Gets the Notepad's HTML
 	* @return - The HTML of the logout button
 	*/
 	private function getNotepadHTML() {
@@ -37,7 +36,7 @@ class NotepadView {
 	}
 
 	/**
-	* Listens for POSTs from the login form or logout button
+	* Listens for POSTs from the Notepad-buttons
 	*/
 	public function listenPOST() {
 		// On Save-click
@@ -51,7 +50,7 @@ class NotepadView {
 	}
 
 	/**
-	* Logs the user in
+	* Saves the note to session and cookie
 	*/
 	private function saveNote() {
 		$_SESSION['note'] = $_POST['note']; // Saves to session
@@ -59,7 +58,7 @@ class NotepadView {
 	}
 
 	/**
-	* Logs the user in
+	* Clears the currently saved note
 	*/
 	private function clearNote() {
 		// Unsets and clears the cookie
@@ -69,6 +68,9 @@ class NotepadView {
 		$_SESSION['note'] = '';
 	}
 
+	/**
+	 * Gets the eventually saved note
+	 */
 	private function getSavedNote() {
 		if (isset($_COOKIE['note'])) {
 			return $_COOKIE['note']; // from cookie

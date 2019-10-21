@@ -9,9 +9,6 @@ Username and Password:
 ## TO-DO
 
 - Comment methods and clarify some rows
-- Change to clearer names of variables and methods
-- Refactor classes
-- Break out as much as possible in index.php
 - Add installation and running instructions
 - Add the manual test cases
 - Indentation

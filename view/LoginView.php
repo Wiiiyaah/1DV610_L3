@@ -14,14 +14,16 @@ class LoginView {
 	public static $savedUserName = '';
 	protected static $currView;
 
-	// Constructor with view as parameter
+	/**
+	 * Constructor with a partial view as parameter
+	 */
 	function __construct($view) {
 			self::$currView = $view;
 	}
 
 	/**
 	 * Creates HTTP response depending on if logged in or out
-	 * @return - The requested HTML-response (either a login form or logout button)
+	 * @return - The requested HTML-response (either a login form or logout button with content logged in)
 	 */
 	public function response() {
 		// When POST (of Login-form)
@@ -37,9 +39,9 @@ class LoginView {
 	}
 
 	/**
-	* Generate HTML code on the output buffer for the logout button
+	* Gets the HTML code for the logout button and logged in content
 	* @param $message, String output message
-	* @return - The HTML of the logout button
+	* @return - The HTML of the logout button and page content
 	*/
 	private function getLoggedInHTML($message) {
 		return '
@@ -54,7 +56,7 @@ class LoginView {
 	}
 
 	/**
-	* Generate HTML code on the output buffer for the login form
+	* Gets the  HTML code for the login form
 	* @param $message, String output message
 	* @return - The HTML of the login form
 	*/
@@ -107,6 +109,9 @@ class LoginView {
 		}
 	}
 
+	/**
+	 * Logs the user in by saved cookies
+	 */
 	private function loginByCookies() {
 		if ($_COOKIE[self::$cookieName] == 'Admin' && $_COOKIE[self::$cookiePassword] == 'Password') {
 			self::$correctCookie = true;
@@ -125,7 +130,7 @@ class LoginView {
 	}
 
 	/**
-	 * Logs in by the submit-button in the log in form
+	 * Logs in by the submit-button in the login-form
 	 */
 	private function loginByPOST() {
 		if ($_POST[self::$name] == '') {
@@ -157,11 +162,17 @@ class LoginView {
 		$_SESSION['password'] = $_COOKIE[self::$cookiePassword];
 	}
 
+	/**
+	 * Clears the current session
+	 */
 	private function clearSession() {
 		session_unset();
 		session_destroy();
 	}
 
+	/**
+	 * Clears the login-cookies
+	 */
 	private function clearCookies() {
 		unset($_COOKIE[self::$cookieName]);
 		unset($_COOKIE[self::$cookiePassword]);
@@ -183,7 +194,7 @@ class LoginView {
 	}
 
 	/**
-	 * Gets requested username and makes it saved
+	 * Keeps and returns the username
 	 * @return - The saved username
 	 */
 	private function keepUsername() {
