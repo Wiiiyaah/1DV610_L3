@@ -131,6 +131,7 @@ class LoginView {
 
 	/**
 	 * Logs in by the submit-button in the login-form
+	 * by first controlling the entered credentials
 	 */
 	private function loginByPOST() {
 		if ($_POST[self::$name] == '') {

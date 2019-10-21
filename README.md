@@ -8,8 +8,6 @@ Username and Password:
 
 ## TO-DO
 
-- Comment methods and clarify some rows
 - Add installation and running instructions
 - Add the manual test cases
-- Indentation
 
