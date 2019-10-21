@@ -12,7 +12,7 @@ Username and Password:
 - (Alternatively get a web hosting account from a web hotel with above given requirements)
 - Upload the files in this project to the chosen server (either local or to the web hotel)
 - Open up the uploaded directory/URL in your browser
-- VOILA! Everythign should be ready to try!
+- VOILA! Everything should be ready to try!
 
 ## Extra Use-Cases
 
