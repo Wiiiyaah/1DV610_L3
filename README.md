@@ -1,5 +1,7 @@
-# Login application in PHP
+# Notepad application in PHP with login
 Made as assignment no. 3 in course 1DV610
+
+![Marge taking notes](https://media2.giphy.com/media/xT5LMJ3T03gLrDhK48/giphy.gif?cid=790b7611506b48e7c5db03836e3ecd8fce483ebdacc35152&rid=giphy.gif)
 
 ## Hardcoded credentials
 
@@ -13,6 +15,11 @@ Username and Password:
 - Upload the files in this project to the chosen server (either local or to the web hotel)
 - Open up the uploaded directory/URL in your browser
 - VOILA! Everything should be ready to try!
+
+## TO-DO/Not implemented
+- Connecting to MySQL-database
+- Don't use hardcoded example credentials
+- Use the database to register/store users and credentials (salted and hashed)
 
 ## Extra Use-Cases
 
