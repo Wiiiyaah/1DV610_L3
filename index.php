@@ -26,7 +26,7 @@ if (isset($_GET['register'])) {
 // Renders main page logged in if cookies exist
 } else if (isset($_COOKIE[LoginView::$cookieName]) && isset($_COOKIE[LoginView::$cookiePassword])) {
 	$loginVw->loginUser();
-	$layoutVw->render(true, $loginVw, $dateTimeVw);
+	$layoutVw->render(LoginView::$correctCookie, $loginVw, $dateTimeVw);
 // Renders main page logged in if session exists
 } else if (isset($_SESSION['loggedIn'])) {
 	$layoutVw->render(true, $loginVw, $dateTimeVw);
