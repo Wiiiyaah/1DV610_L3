@@ -9,7 +9,7 @@ Username and Password:
 ## Installation instructions
 
 - Install WAMP/LAMP/MAMP/XAMPP with support of Apache, FTP and PHP
-- (Alternatively get a Seb hosting account from a web hotel with above given requirements)
+- (Alternatively get a web hosting account from a web hotel with above given requirements)
 - Upload the files in this project to the chosen server (either local or to the web hotel)
 - Open up the uploaded directory/URL in your browser
 - VOILA! Everythign should be ready to try!
