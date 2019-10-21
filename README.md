@@ -1,16 +1,25 @@
 # Login application in PHP
 Made as assignment no. 3 in course 1DV610
 
-### Hardcoded credentials
+## Hardcoded credentials
 
 Username and Password:
 (Same as default in assignment 2)
+
+## Installation instructions
+
+- Install WAMP/LAMP/MAMP/XAMPP with support of Apache, FTP and PHP
+- (Alternatively get a Seb hosting account from a web hotel with above given requirements)
+- Upload the files in this project to the chosen server (either local or to the web hotel)
+- Open up the uploaded directory/URL in your browser
+- VOILA! Everythign should be ready to try!
 
 ## Extra Use-Cases
 
 **UC1 – Save a note in Notepad**
 
 Precondition: User is logged in
+
 Postcondition: The note is saved
 
 **Main scenario**
@@ -24,6 +33,7 @@ Postcondition: The note is saved
 **UC2 – Clear/Remove the note in Notepad**
 
 Precondition: User is logged in with a saved note in the textarea
+
 Postcondition: The note is cleared and the textarea empty of text
 
 **Main scenario**
@@ -34,6 +44,7 @@ Postcondition: The note is cleared and the textarea empty of text
 **UC3 – Edit existing note**
 
 Precondition: User is logged in with a saved note in the textarea
+
 Postcondition: The note is changed to what the user added/edited
 
 **Main scenario**
@@ -49,7 +60,9 @@ Postcondition: The note is changed to what the user added/edited
 **TC1 – Save of note succesful**
 
 Precondition: User is logged in
+
 Use-Case: UC1 - Save a note in Notepad
+
 Scenario: Saving of note succesful
 
 **Test steps**
@@ -68,7 +81,9 @@ Scenario: Saving of note succesful
 **TC2 – Clearing/Removal of note succesful**
 
 Precondition: User is logged in with a saved note in the textarea
+
 Use-Case: UC2 - Clear/Remove the note in Notepad
+
 Scenario: Clearing of note succesful
 
 **Main scenario**
@@ -83,7 +98,9 @@ Scenario: Clearing of note succesful
 **TC3 – Edit existing note succesful**
 
 Precondition: User is logged in with a saved note in the textarea
+
 Use-Case: UC3 - Edit existing note
+
 Scenario: Editing of existing note succesful
 
 **Main scenario**
