@@ -18,7 +18,7 @@ class LoginView {
 	 * Constructor with a partial view as parameter
 	 */
 	function __construct($view) {
-			self::$currView = $view;
+		self::$currView = $view;
 	}
 
 	/**
@@ -83,9 +83,9 @@ class LoginView {
 	 * Listens for POSTs from the login form or logout button
 	 */
 	public function listenPOST() {
-		if (isset($_POST['LoginView::Login'])) {
+		if (isset($_POST[self::$login])) {
 			$this->loginUser();
-		} else if (isset($_POST['LoginView::Logout'])) {
+		} else if (isset($_POST[self::$logout])) {
 			$this->logOutUser();
 		}
 	}
@@ -101,7 +101,7 @@ class LoginView {
 		} else if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
 			$this->message = "";
 		// If no cookie or session is set, by click on login button
-		} else if (isset($_POST['LoginView::Login'])) {
+		} else if (isset($_POST[self::$login])) {
 			$this->loginByPOST();
 		}
 	}
@@ -136,9 +136,7 @@ class LoginView {
 		} else if ($_POST[self::$password] == '') {
 			$this->keepUsername();
 			$this->message = "Password is missing";
-		} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] != 'Password') {
-			$this->message = "Wrong name or password";
-		} else if ($_POST[self::$name] != 'Admin' && $_POST[self::$password] == 'Password') {
+		} else if ($_POST[self::$name] != 'Admin' || $_POST[self::$password] != 'Password') {
 			$this->message = "Wrong name or password";
 		} else if ($_POST[self::$name] == 'Admin' && $_POST[self::$password] == 'Password') {
 			if (isset($_POST[self::$keep])) {

@@ -5,6 +5,10 @@ class NotepadView {
 	private static $saveNote = 'NotepadView::SaveNote';
 	private static $clearNote = 'NotepadView::ClearNote';
 
+    function __construct() {
+        // $this->notepadModel = new NotePad();
+    }
+
 	/**
 	* Creates a HTTP response with the Notepad HTML and a POST-listener
 	* @return - The HTML-response of a Notepad
